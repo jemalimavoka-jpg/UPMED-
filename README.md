@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UPMED - International Medical Learning Platform</title>
+<title>UPMED - Plateforme Médicale Éducative</title>
 
 <style>
 body{
-font-family:Arial, sans-serif;
+font-family: "Segoe UI", Arial, sans-serif;
 margin:0;
-background:#eef2f7;
-color:#1a1a1a;
+background:#f4f6f9;
+color:#222;
 }
 
 header{
-background:#0d47a1;
+background:#0b3d91;
 color:white;
 padding:30px 20px;
 text-align:center;
@@ -28,56 +28,70 @@ font-size:32px;
 header p{
 margin-top:10px;
 font-size:15px;
+opacity:0.9;
 }
 
 .container{
-padding:20px;
-max-width:900px;
+max-width:1000px;
 margin:auto;
+padding:20px;
 }
 
-.box{
+.section{
 background:white;
-padding:20px;
+padding:25px;
 margin:20px 0;
-border-radius:10px;
-box-shadow:0 4px 10px rgba(0,0,0,0.08);
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,0.05);
 }
 
 h2{
-color:#0d47a1;
 margin-top:0;
+color:#0b3d91;
 }
 
-input, select, textarea, button{
+input, select, textarea{
 width:100%;
 padding:12px;
-margin:8px 0;
-font-size:16px;
+margin:10px 0;
 border-radius:6px;
 border:1px solid #ccc;
+font-size:15px;
+}
+
+textarea{
+min-height:120px;
 }
 
 button{
-background:#0d47a1;
+background:#0b3d91;
 color:white;
 border:none;
+padding:12px;
+width:100%;
+font-size:16px;
 font-weight:bold;
+border-radius:6px;
+cursor:pointer;
 }
 
 button:hover{
-background:#1565c0;
+background:#1451b8;
+}
+
+.result{
+background:#eef3ff;
+padding:15px;
+margin-top:15px;
+border-radius:8px;
+white-space:pre-line;
 }
 
 footer{
 text-align:center;
 font-size:12px;
+color:gray;
 padding:20px;
-color:gray;
-}
-.small{
-font-size:12px;
-color:gray;
 }
 </style>
 </head>
@@ -85,176 +99,163 @@ color:gray;
 <body>
 
 <header>
-<h1>🌍 UPMED</h1>
+<h1>UPMED</h1>
 <p>
-International Medical Educational Platform  
-Created by <strong>Jemali Mavoka</strong>
+Plateforme médicale éducative internationale<br>
+Créée par <strong>Jemali Mavoka</strong><br>
+Destinée aux étudiants et professionnels de santé
 </p>
 </header>
 
 <div class="container">
 
-<div class="box">
-<h2>About UPMED</h2>
+<div class="section">
+<h2>Présentation</h2>
 <p>
-UPMED is an international educational medical platform created by Jemali Mavoka, 
-designed to support students and healthcare professionals worldwide.  
-It provides structured clinical reasoning simulations, exam generation tools, 
-and adaptive explanations tailored to the user's academic level and specialty.
-</p>
+UPMED est une plateforme pédagogique conçue pour aider les étudiants et professionnels
+de santé à améliorer leur raisonnement clinique.
 
-<p>
-The platform aims to enhance understanding in medicine, nursing, anesthesia, 
-critical care, pharmacy, and all healthcare disciplines.
-</p>
+L'utilisateur peut entrer des symptômes, signes cliniques, résultats biologiques ou radiologiques.
+Le système génère ensuite une simulation de raisonnement différentiel structurée
+adaptée au niveau académique sélectionné.
 
-<p class="small">
-UPMED is strictly for educational purposes and does not provide medical diagnosis or clinical decision-making support.
+Cette plateforme est strictement éducative et ne remplace en aucun cas un avis médical réel.
 </p>
 </div>
 
-<div class="box">
-<h2>Create Your Profile</h2>
+<div class="section">
+<h2>Créer un Profil</h2>
 
-<select id="language">
-<option>English</option>
-<option>Français</option>
-<option>Español</option>
-<option>Português</option>
+<input id="nom" placeholder="Nom complet">
+
+<select id="faculte">
+<option>Médecine</option>
+<option>Sciences Infirmières</option>
+<option>Pharmacie</option>
+<option>Kinésithérapie</option>
+<option>Sage-femme</option>
+<option>Autre</option>
 </select>
 
-<input id="country" placeholder="Country">
+<input id="specialite" placeholder="Spécialité (Anesthésie, Réanimation, Cardiologie...)">
 
-<select id="faculty">
-<option>Medicine</option>
-<option>Nursing</option>
-<option>Pharmacy</option>
-<option>Physiotherapy</option>
-<option>Midwifery</option>
-<option>Other</option>
+<select id="niveau">
+<option>Débutant</option>
+<option>Intermédiaire</option>
+<option>Avancé</option>
 </select>
 
-<input id="specialty" placeholder="Specialty (Anesthesia, ICU, Cardiology...)">
-
-<select id="level">
-<option>Beginner</option>
-<option>Intermediate</option>
-<option>Advanced</option>
-</select>
-
-<button onclick="saveProfile()">Save Profile</button>
+<button onclick="enregistrerProfil()">Enregistrer le profil</button>
 </div>
 
-<div class="box">
-<h2>Clinical Reasoning Simulator</h2>
+<div class="section">
+<h2>Simulation de Raisonnement Clinique</h2>
 
-<textarea id="clinicalInput" placeholder="Enter symptoms, vital signs, lab results, imaging findings..."></textarea>
+<textarea id="donnees" placeholder="Entrer les symptômes, antécédents, résultats biologiques, examens radiologiques..."></textarea>
 
-<button onclick="analyzeCase()">Analyze Case</button>
+<button onclick="analyser()">Analyser le cas</button>
 
-<pre id="analysisResult"></pre>
+<div id="resultat" class="result"></div>
 </div>
 
-<div class="box">
-<h2>Exam Generator</h2>
+<div class="section">
+<h2>Générateur d’Examen Clinique</h2>
 
-<select id="examLevel">
-<option>Easy</option>
-<option>Medium</option>
-<option>Hard</option>
-<option>Critical Emergency</option>
+<select id="difficulte">
+<option>Facile</option>
+<option>Moyen</option>
+<option>Difficile</option>
+<option>Urgence Critique</option>
 </select>
 
-<button onclick="generateExam()">Generate Clinical Case</button>
+<button onclick="genererExamen()">Générer un cas clinique</button>
 
-<pre id="examResult"></pre>
+<div id="examen" class="result"></div>
 </div>
 
 </div>
 
 <footer>
-© 2026 UPMED – Created by Jemali Mavoka  
-Educational platform only – Not for real patient care.
+© 2026 UPMED - Créé par Jemali Mavoka  
+Plateforme éducative uniquement.
 </footer>
 
 <script>
 
-function saveProfile(){
-let profile={
-language:document.getElementById("language").value,
-country:document.getElementById("country").value,
-faculty:document.getElementById("faculty").value,
-specialty:document.getElementById("specialty").value,
-level:document.getElementById("level").value
+function enregistrerProfil(){
+let profil={
+nom:document.getElementById("nom").value,
+faculte:document.getElementById("faculte").value,
+specialite:document.getElementById("specialite").value,
+niveau:document.getElementById("niveau").value
 };
 
-localStorage.setItem("upmedProfile", JSON.stringify(profile));
-alert("Profile saved successfully.");
+localStorage.setItem("profilUPMED", JSON.stringify(profil));
+alert("Profil enregistré avec succès.");
 }
 
-function analyzeCase(){
+function analyser(){
 
-let profile=JSON.parse(localStorage.getItem("upmedProfile"));
-let input=document.getElementById("clinicalInput").value;
+let profil=JSON.parse(localStorage.getItem("profilUPMED"));
+let donnees=document.getElementById("donnees").value;
 
-if(!profile){
-alert("Please create your profile first.");
+if(!profil){
+alert("Veuillez d'abord enregistrer votre profil.");
 return;
 }
 
-let output=
-"User Profile:\n"+
-profile.faculty+" - "+profile.specialty+" ("+profile.level+")\n\n"+
+let texte=
+"Profil : "+profil.nom+"\n"+
+profil.faculte+" - "+profil.specialite+" ("+profil.niveau+")\n\n"+
 
-"Clinical Reasoning Simulation:\n\n"+
+"--- Analyse pédagogique du cas ---\n\n"+
 
-"1. Possible Differential Diagnoses:\n"+
-"- Condition A related to symptoms\n"+
-"- Condition B based on clinical findings\n"+
-"- Condition C to exclude urgently\n\n"+
+"1) Diagnostics différentiels possibles :\n"+
+"- Pathologie 1 compatible avec les symptômes\n"+
+"- Pathologie 2 à éliminer\n"+
+"- Pathologie grave à rechercher en priorité\n\n"+
 
-"2. Suggested Investigations:\n"+
-"- Laboratory tests\n"+
-"- Imaging\n"+
-"- Monitoring parameters\n\n"+
+"2) Examens complémentaires suggérés :\n"+
+"- Bilan biologique ciblé\n"+
+"- Imagerie adaptée\n"+
+"- Surveillance des constantes\n\n"+
 
-"3. Physiopathological Explanation:\n"+
-"Adapted to "+profile.level+" level.\n\n"+
+"3) Explication physiopathologique :\n"+
+"Analyse adaptée au niveau "+profil.niveau+".\n\n"+
 
-"4. Priority Actions (Educational Simulation):\n"+
-"- ABCDE assessment\n"+
-"- Stabilize airway, breathing, circulation\n"+
-"- Identify red flags\n\n"+
+"4) Conduite à tenir (simulation éducative) :\n"+
+"- Évaluation systématique ABCDE\n"+
+"- Stabilisation initiale\n"+
+"- Réévaluation continue\n\n"+
 
-"⚠️ Educational simulation only.";
+"⚠️ Ceci est une simulation éducative.";
 
-document.getElementById("analysisResult").textContent=output;
+document.getElementById("resultat").innerText=texte;
 }
 
-function generateExam(){
+function genererExamen(){
 
-let level=document.getElementById("examLevel").value;
+let diff=document.getElementById("difficulte").value;
 
-let caseText=
-"Clinical Case - Level: "+level+"\n\n"+
+let cas=
+"Cas Clinique - Niveau "+diff+"\n\n"+
 
-"A patient presents with acute symptoms requiring clinical evaluation.\n\n"+
+"Un patient consulte pour des symptômes nécessitant une évaluation clinique.\n\n"+
 
-"Questions:\n"+
-"1) What are the immediate priorities?\n"+
-"2) What are the differential diagnoses?\n"+
-"3) What investigations are needed?\n"+
-"4) What is the management plan?\n\n"+
+"Questions :\n"+
+"1) Quelle est votre priorité ?\n"+
+"2) Quels diagnostics évoquez-vous ?\n"+
+"3) Quels examens demandez-vous ?\n"+
+"4) Quelle conduite à tenir proposez-vous ?\n\n"+
 
-"Correction:\n"+
-"- Perform systematic assessment\n"+
-"- Identify life-threatening conditions\n"+
-"- Provide stabilization\n"+
-"- Reassess continuously\n\n"+
+"Correction pédagogique :\n"+
+"- Appliquer un raisonnement structuré\n"+
+"- Identifier les urgences vitales\n"+
+"- Justifier chaque décision\n\n"+
 
-"Educational purpose only.";
+"Plateforme éducative.";
 
-document.getElementById("examResult").textContent=caseText;
+document.getElementById("examen").innerText=cas;
 }
 
 </script>
